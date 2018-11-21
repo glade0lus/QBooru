@@ -19,8 +19,8 @@ ImageTab::ImageTab(SearchTab *parent, int imageHostInt) : QWidget(parent)
     parentWidget = parent;
 
     layout = new QVBoxLayout;
-    imageThumbnail = new ClickableLabel("Thumbnail");
-    imageDescription = new QLabel("Description");
+    imageThumbnail = new ClickableLabel(tr("Thumbnail"));
+    imageDescription = new QLabel(tr("Description"));
 
     imageThumbnail->setPixmap(QPixmap(ICON_PATH));
     imageThumbnail->setStyleSheet("qproperty-alignment: AlignCenter;");

@@ -2,6 +2,7 @@
 #define MAINWIDGET_H
 
 #include <QtWidgets>
+#include <QTranslator>
 
 class QBooruTab;
 class QBooruPictureViewer;
@@ -26,6 +27,7 @@ private:
     QTabWidget *tab_widget;
     QVector<QBooruTab*> tabs;
     QBooruPictureViewer *viewer;
+    QTranslator translator;
 };
 
 #endif // MAINWIDGET_H

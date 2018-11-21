@@ -3,10 +3,10 @@
 QDownloadWidget::QDownloadWidget(QWidget *parent, bool reboot) : QWidget(parent)
 {
     this->reboot = reboot;
-    labelFile = new QLabel("File",this);
+    labelFile = new QLabel(tr("File"),this);
     labelUrl = new QLabel("URL",this);
     progressBar = new QProgressBar(this);
-    labelProgress = new QLabel("Progress",this);
+    labelProgress = new QLabel(tr("Progress"),this);
 
     QVBoxLayout *layout = new QVBoxLayout;
 
@@ -23,9 +23,9 @@ void QDownloadWidget::download(const char* url, const char* file, bool override)
     this->url = QString(url);
     this->file = QString(file);
 
-    labelFile->setText("File: " + this->file);
+    labelFile->setText(tr("File: ") + this->file);
     labelUrl->setText("URL: " + this->url);
-    labelProgress->setText("Initializing (May take some time)");
+    labelProgress->setText(tr("Initializing (May take some time)"));
 
     savefile = new QFile;
     savefile->setFileName(this->file);
@@ -33,7 +33,7 @@ void QDownloadWidget::download(const char* url, const char* file, bool override)
     if(fexists(file) && !override)
     {
         progressBar->setValue(100);
-        labelProgress->setText("Already existing");
+        labelProgress->setText(tr("Already existing"));
     }
     else
     {
@@ -59,7 +59,7 @@ void QDownloadWidget::download(const char* url, const char* file, bool override)
 
 void QDownloadWidget::onDownloadProgress(qint64 bytesRead,qint64 bytesTotal)
 {
-    labelProgress->setText(QString("Downloading ") + QString::number(bytesRead) + QString("/") + QString::number(bytesTotal));
+    labelProgress->setText(QString(tr("Downloading ")) + QString::number(bytesRead) + QString("/") + QString::number(bytesTotal));
     progressBar->setMaximum(bytesTotal);
     progressBar->setValue(bytesRead);
 }
@@ -68,7 +68,7 @@ void QDownloadWidget::finished()
 {
     if(reply->error() != QNetworkReply::NoError)
     {
-        labelProgress->setText("Error : " + reply->error());
+        labelProgress->setText(tr("Error : ") + reply->error());
         qDebug() << "Error while downloading " << url << " : " << reply->error() ;
     }
     else
@@ -79,7 +79,7 @@ void QDownloadWidget::finished()
         reply->deleteLater();
         savefile->close();
 
-        labelProgress->setText("File saved");
+        labelProgress->setText(tr("File saved"));
 
         qDebug() << "Downloaded" << url << "to" << file ;
     }

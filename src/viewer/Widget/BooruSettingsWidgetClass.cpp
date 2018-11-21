@@ -19,12 +19,12 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
 
     QList<QWidget*> list = generateInputs();
 
-    groupBoxMainSettings = new QGroupBox("Main Settings", this);
+    groupBoxMainSettings = new QGroupBox(tr("Main Settings"), this);
     layoutGroupBoxMainSettings = new QVBoxLayout;
 
         layoutGroupBoxMainSettings->addWidget(list.at(L_NAME));
 
-        checkBoxPreset = new QCheckBox("Presets",this);
+        checkBoxPreset = new QCheckBox(tr("Presets"),this);
         checkBoxPreset->setChecked(false);
 
         comboBoxPreset = new QComboBox(this);
@@ -46,9 +46,9 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
         //qDebug() << "Generated the Options tab" ;
 
         QHBoxLayout * lay = new QHBoxLayout;
-        labelBooruType = new QLabel("Booru Type",this);
+        labelBooruType = new QLabel(tr("Booru Type"),this);
         comboBoxBooruType = new QComboBox(this);
-        comboBoxBooruType->addItem("Derpibooru (not recommended, is being recoded)");
+        comboBoxBooruType->addItem(tr("Derpibooru (not recommended, is being recoded)"));
         comboBoxBooruType->addItem("Gelbooru");
         comboBoxBooruType->addItem("Moebooru");
         comboBoxBooruType->addItem("Danbooru");
@@ -65,7 +65,7 @@ BooruSettings::BooruSettings(BooruSettingsTab *parent)
 
      layoutMain->addWidget(groupBoxMainSettings);
 
-     saveButton = new QPushButton("Save");
+     saveButton = new QPushButton(tr("Save"));
 
      connect(comboBoxPreset,SIGNAL(currentIndexChanged(int)),this,SLOT(loadPreset(int)));
      connect(checkBoxPreset,SIGNAL(clicked(bool)),comboBoxPreset,SLOT(setEnabled(bool)));

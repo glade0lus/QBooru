@@ -86,6 +86,8 @@ DISTFILES += \
     json/sconscript \
     config/config.ini
 
+TRANSLATIONS = qbooru_ru.ts
+
 macx { # Mac OS
     CONFIG += c++11
     CONFIG -= app_bundle

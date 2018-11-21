@@ -32,7 +32,7 @@ BooruSettingsTab::BooruSettingsTab(Widget *parent)
 
     mainGridLayout->addWidget(editBooruWidget,2,0);
 
-    pushbuttonDeleteBooru = new QPushButton("Delete");
+    pushbuttonDeleteBooru = new QPushButton(tr("Delete"));
 
     void (QComboBox:: *indexChangedSignal)(int) = &QComboBox::currentIndexChanged;
 
@@ -76,7 +76,7 @@ void BooruSettingsTab::loadBoorus()
         comboBoxBooru->addItem(QString(conf_file->getBooru(i)->getName().c_str()));
     }
 
-    comboBoxBooru->addItem("New Booru");
+    comboBoxBooru->addItem(tr("New Booru"));
 }
 
 void BooruSettingsTab::deleteBooru()

@@ -23,35 +23,35 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
     parentWidget = parent;
 
     /*Déclaration des objets*/
-    groupBox = new QGroupBox("Options",this);
+    groupBox = new QGroupBox(tr("Options"),this);
     layoutGroupBox = new QVBoxLayout;
 
-    groupBoxCredits = new QGroupBox("Credits",this);
+    groupBoxCredits = new QGroupBox(tr("Credits"),this);
 
 
     layoutMain = new QVBoxLayout;
         credits = new QLabel("Gelbooru API | Moebooru API | Danbooru API",this);
         credits->setStyleSheet("qproperty-alignment: AlignCenter;");
 
-            pushButtonUpdater = new QPushButton("Run Updater",this);
+            pushButtonUpdater = new QPushButton(tr("Run Updater"),this);
 
-            pushButtonReset = new QPushButton("Reset Booru Settings",this);
-            pushButtonCache = new QPushButton("Clear Cache",this);
-            pushButtonRefreshCacheSize = new QPushButton("Refresh Cache",this);
-            labelCache = new QLabel("Cache size :",this);
+            pushButtonReset = new QPushButton(tr("Reset Booru Settings"),this);
+            pushButtonCache = new QPushButton(tr("Clear Cache"),this);
+            pushButtonRefreshCacheSize = new QPushButton(tr("Refresh Cache"),this);
+            labelCache = new QLabel(tr("Cache size :"),this);
 
-            pushButtonTags = new QPushButton("Refresh Tags",this);
-            labelTags = new QLabel("Last refresh : " + QString(returnTimeStringConvert(conf_file->getLastTagRefresh()).c_str()),this);
+            pushButtonTags = new QPushButton(tr("Refresh Tags"),this);
+            labelTags = new QLabel(tr("Last refresh : ") + QString(returnTimeStringConvert(conf_file->getLastTagRefresh()).c_str()),this);
 /*
         QVBoxLayout *layoutDownloadPath2 = new QVBoxLayout;
             pushButtonResetAllDownloadPath = new QPushButton("Reset all download paths",this);
             lineEditDownloadPath = new QLineEdit(QString(root["paths"]["default_download_path"].asString().c_str()),this);*/
 
-        checkBoxLoadingStartup = new QCheckBox("Load on Startup",this);
+        checkBoxLoadingStartup = new QCheckBox(tr("Load on Startup"),this);
         checkBoxLoadingStartup->setChecked(conf_file->isLoadingOnStartup());
 
         searchRating = new QComboBox;
-        searchRating->addItem("All");
+        searchRating->addItem(tr("All"));
         searchRating->addItem("Safe");
         searchRating->addItem("Questionnable");
         searchRating->addItem("Explicit");
@@ -59,9 +59,9 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
 
         searchRating->setCurrentIndex(conf_file->getPreferredRating());
 
-        labelDefaultRating = new QLabel("Default Rating");
+        labelDefaultRating = new QLabel(tr("Default Rating"));
         labelDefaultRating->setStyleSheet("qproperty-alignment: AlignCenter;");
-        labelDefaultBooru = new QLabel("Default Booru");
+        labelDefaultBooru = new QLabel(tr("Default Booru"));
         labelDefaultBooru->setStyleSheet("qproperty-alignment: AlignCenter;");
 
         defaultBooru = new QComboBox;
@@ -91,7 +91,7 @@ OptionTab::OptionTab(Widget *parent) : QWidget(parent)
         nbImages[1]->setCurrentIndex(conf_file->getPictureRow());
 
         textBrowserChangelog = new QTextBrowser(this);
-        pushButtonSave = new QPushButton("Save Options",this);
+        pushButtonSave = new QPushButton(tr("Save Options"),this);
 
 
     /*Assignations aux layouts*/
@@ -233,7 +233,7 @@ void OptionTab::refreshCacheSize()
         cache_unit = " B";
     }
 
-    labelCache->setText("Cache size : " + QString::number(cache_size) + cache_unit);
+    labelCache->setText(QObject::tr("Cache size : ") + QString::number(cache_size) + cache_unit);
 }
 
 void OptionTab::runUpdater()
@@ -298,5 +298,5 @@ void OptionTab::saveOptions()
 
     conf_file->saveFile();
 
-    QMessageBox::information(this, "Info", "Configuration saved");
+    QMessageBox::information(this, QObject::tr("Info"), QObject::tr("Configuration saved"));
 }

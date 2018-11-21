@@ -14,12 +14,12 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
     /*Déclaration des variables (avec arbre)*/
     parentWidget = parent;
 
-    labelLoading = new QLabel("Waiting",this);
+    labelLoading = new QLabel(tr("Waiting"),this);
     progressBar = new QProgressBar(this);
 
     layoutMain = new QHBoxLayout;
 
-        labelImage = new QLabel("Search an image first");
+        labelImage = new QLabel(tr("Search an image first"));
 
         layoutInfoTagsSeparator = new QVBoxLayout;
 
@@ -27,20 +27,20 @@ ViewerTab::ViewerTab(Widget *parent) : QWidget(parent)
                 scrollAreaTagsContents = new QWidget;
                     layoutTags = new QVBoxLayout;
 
-            groupBoxInfo = new QGroupBox("Info");
+            groupBoxInfo = new QGroupBox(tr("Info"));
                 layoutGroupBox = new QVBoxLayout;
                     for(i=0;i<16;i++)
                     {
                         labelInfo[i] = new QLabel(this);
-                        labelInfo[i]->setText("Some Text");
+                        labelInfo[i]->setText(tr("Some Text"));
                     }
-            pushButtonDownload = new QPushButton("Download");
+            pushButtonDownload = new QPushButton(tr("Download"));
 
             layoutSwitchPicture = new QHBoxLayout;
                 pushButtonSwitchMoins = new QPushButton("<--");
                 pushButtonSwitchPlus = new QPushButton("-->");
 
-            labelPage = new QLabel("Search Page");
+            labelPage = new QLabel(tr("Search Page"));
             labelPage->setStyleSheet("qproperty-alignment: AlignCenter;");
 
     /*Assignation des éléments aux layouts*/
@@ -154,23 +154,23 @@ void ViewerTab::loadPicture(int imageHostInt, int tabIndex, int index, int pageI
     thumbZoneSize.setWidth(this->width()-scrollAreaTags->width());
 
     progressBar->setValue(0);
-    labelLoading->setText("Loading Picture");
+    labelLoading->setText(tr("Loading Picture"));
 
-    labelPage->setText(QString("Search Page : ") + QString::number(pageIndex));
+    labelPage->setText(QString(tr("Search Page : ")) + QString::number(pageIndex));
 
     clearLayout(layoutGroupBox);
 
     Image = parentWidget->searchtabs[tabIndex]->images[imageIndex];
     loadPicture();
     progressBar->setValue(50);
-    labelLoading->setText("Loading tags");
+    labelLoading->setText(tr("Loading tags"));
     if(booru->getSiteTypeInt() != DERPIBOORU_TYPE)
     {
         loadLabelsTags(Image.tags);
     }
 
     progressBar->setValue(50);
-    labelLoading->setText("Loading picture");
+    labelLoading->setText(tr("Loading picture"));
 
     startLoadingPicture();
 
@@ -186,15 +186,15 @@ void ViewerTab::loadPicture()
 
     infos[0] = QString("Booru : ") + QString(booru->getName().c_str()); //Booru
     infos[1] = QString(booru->getName().c_str()) + QString(" URL : ") + QString("<a href=\"") + QString(booru->getShowIndexUrl().c_str()) + QString::number(Image.id) + QString("\">") + QString("Link") + QString("</a>");
-    infos[2] = QString("Source URL : ") + QString("<a href=\"") + QString(Image.source.c_str()) + QString("\">") + QString("Link") + QString("</a>");
+    infos[2] = QString(tr("Source URL : ")) + QString("<a href=\"") + QString(Image.source.c_str()) + QString("\">") + QString("Link") + QString("</a>");
 
-    infos[3] = QString("Image ID : ") + QString::number(Image.id); //ID
-    infos[4] = QString("Creator : ") + QString(Image.author.c_str());//Author
-    infos[5] = QString("Created on : ") + QString(date.c_str());//Date
-    infos[6] = QString("Score : ") + QString::number(Image.score);//Score
+    infos[3] = QString(tr("Image ID : ")) + QString::number(Image.id); //ID
+    infos[4] = QString(tr("Creator : ")) + QString(Image.author.c_str());//Author
+    infos[5] = QString(tr("Created on : ")) + QString(date.c_str());//Date
+    infos[6] = QString(tr("Score : ")) + QString::number(Image.score);//Score
 
-    infos[8] = QString("Size : ") + QString("<a href=\"") + QString(Image.full_url.c_str()) +  QString("\">") + QString::number(Image.width) + "x" + QString::number(Image.height) + QString("</a>");//Picture Size
-    infos[9] = QString("File Size : ") + QString::number(Image.file_size);//File Size
+    infos[8] = QString(tr("Size : ")) + QString("<a href=\"") + QString(Image.full_url.c_str()) +  QString("\">") + QString::number(Image.width) + "x" + QString::number(Image.height) + QString("</a>");//Picture Size
+    infos[9] = QString(tr("File Size : ")) + QString::number(Image.file_size);//File Size
 
     switch(Image.rating)
     {
@@ -235,10 +235,10 @@ void ViewerTab::loadPicture()
 
 void ViewerTab::downloadPicture()
 {
-    labelLoading->setText("Downloading Picture (May take some time)");
+    labelLoading->setText(tr("Downloading Picture (May take some time)"));
     progressBar->setValue(0);
     Image.download_full();
-    labelLoading->setText("Completed");
+    labelLoading->setText(tr("Completed"));
     progressBar->setValue(100);
 }
 
@@ -254,7 +254,7 @@ void ViewerTab::showNextPicture()
     }
     else
     {
-        labelLoading->setText("Caching Picture");
+        labelLoading->setText(tr("Caching Picture"));
         imageIndex +=1;
         parentWidget->searchtabs[booru->getIndex()]->setViewer(imageIndex);
     }
@@ -277,7 +277,7 @@ void ViewerTab::showPreviousPicture()
     }
     else if(imageIndex>0)
     {
-        labelLoading->setText("Caching Picture");
+        labelLoading->setText(tr("Caching Picture"));
         imageIndex--;
         parentWidget->searchtabs[booru->getIndex()]->setViewer(imageIndex);
     }
@@ -345,7 +345,7 @@ void ViewerTab::startLoadingPicture()
 void ViewerTab::imageLoaded()
 {
     progressBar->setValue(100);
-    labelLoading->setText("Completed");
+    labelLoading->setText(tr("Completed"));
 
     checkIfDownloaded();
 }
@@ -360,12 +360,12 @@ void ViewerTab::checkIfDownloaded()
     if(fexists(this->Image.getFullPath().c_str()))
     {
         this->pushButtonDownload->setEnabled(false);
-        this->pushButtonDownload->setText("Already downloaded");
+        this->pushButtonDownload->setText(tr("Already downloaded"));
     }
     else
     {
         this->pushButtonDownload->setEnabled(true);
-        this->pushButtonDownload->setText("Download");
+        this->pushButtonDownload->setText(tr("Download"));
     }
 }
 

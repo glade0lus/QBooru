@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QEventLoop>
 #include <QIcon>
+#include <QTranslator>
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -33,6 +34,11 @@ int main(int argc, char *argv[])
 
     /*Main loop*/
     QApplication *a = new QApplication(argc, argv);
+
+    // Uncomment these for russian translation
+    //QTranslator translator;
+    //translator.load("qbooru_ru");
+    //a->installTranslator(&translator);
 
     /*Config file*/
     QStartupWidget *s = new QStartupWidget(0);

@@ -24,13 +24,13 @@ Widget::Widget(ConfigFile * cfg, QWidget *parent) : QWidget(parent)
     }
 
     viewerTab = new ViewerTab(this);
-    tabWidgetMain->addTab(viewerTab,"Image Viewer");
+    tabWidgetMain->addTab(viewerTab,tr("Image Viewer"));
     grabberTab = new GrabberWidget(this);
-    tabWidgetMain->addTab(grabberTab,"Grabber");
+    tabWidgetMain->addTab(grabberTab,tr("Grabber"));
     optionTab = new OptionTab(this);
-    tabWidgetMain->addTab(optionTab,"Options");
+    tabWidgetMain->addTab(optionTab,tr("Options"));
     settingTabs = new BooruSettingsTab(this);
-    tabWidgetMain->addTab(settingTabs,"Edit Boorus");
+    tabWidgetMain->addTab(settingTabs,tr("Edit Boorus"));
 
     setMinimumSize(1024,768);
     mainLayout->addWidget(tabWidgetMain);
@@ -86,11 +86,11 @@ void Widget::refresh()
     }
 
     viewerTab = new ViewerTab(this);
-    tabWidgetMain->addTab(viewerTab,"Image Viewer");
+    tabWidgetMain->addTab(viewerTab,tr("Image Viewer"));
     optionTab = new OptionTab(this);
-    tabWidgetMain->addTab(optionTab,"Options");
+    tabWidgetMain->addTab(optionTab,tr("Options"));
     settingTabs = new BooruSettingsTab(this);
-    tabWidgetMain->addTab(settingTabs,"Edit Boorus");
+    tabWidgetMain->addTab(settingTabs,tr("Edit Boorus"));
     mainLayout->addWidget(tabWidgetMain);
 
     tabWidgetMain->setCurrentIndex(booruIndexMax+2);
@@ -129,7 +129,7 @@ void Widget::on_tab_changed(int tabIndex)
 
     if(tabIndex == viewerIndex+1) //Grabber
     {
-        QMessageBox::warning(this,"Grabber","The Grabber is still an experimental feature.\nThis feature is heavy for servers, and you may get blocked, or banned.\nYour IP and UserID are recorded in case of abuse, and are sent through the created cookies.\n\nIn case of IP or ID ban, I'm not responsible. Please don't overuse this feature.");
+        QMessageBox::warning(this,tr("Grabber"),tr("The Grabber is still an experimental feature.\nThis feature is heavy for servers, and you may get blocked, or banned.\nYour IP and UserID are recorded in case of abuse, and are sent through the created cookies.\n\nIn case of IP or ID ban, I'm not responsible. Please don't overuse this feature."));
     }
 }
 

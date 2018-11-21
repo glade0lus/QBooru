@@ -5,6 +5,9 @@
 
 MainWidget::MainWidget(QWidget *parent): QWidget(parent)
 {
+    // Uncomment these for russian translation
+    //this->translator.load("qbooru_ru");
+    //qApp->installTranslator(&translator);
     loadUI();
 }
 
@@ -53,7 +56,7 @@ void MainWidget::reorderTabs()
     }
 
     //Viewer
-    this->tab_widget->addTab(this->viewer, "Viewer");
+    this->tab_widget->addTab(this->viewer, tr("Viewer"));
 }
 
 void MainWidget::openViewer()

@@ -43,9 +43,9 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
         layoutTags = new QHBoxLayout;
 
             /*Searchbar*/
-            loginButton = new QPushButton("Login",this);
-            searchButton = new QPushButton("Refresh",this);
-            dumpButton = new QPushButton("Dump Page",this);
+            loginButton = new QPushButton(tr("Login"),this);
+            searchButton = new QPushButton(tr("Refresh"),this);
+            dumpButton = new QPushButton(tr("Dump Page"),this);
             lineEditTags = new QLineEdit;
             lineEditTags->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Fixed);
             lineEditTags->setMaximumHeight(21);
@@ -63,7 +63,7 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
             if(!cookie->isEmpty())
             {
                 //Indicates it on the button
-                loginButton->setText("Login OK");
+                loginButton->setText(tr("Login OK"));
             }
 
 
@@ -91,13 +91,13 @@ SearchTab::SearchTab(Widget *parent, BooruSite* site) : QWidget(parent)
             layoutSearchStatus = new QVBoxLayout;
                 progressBarSearch = new QProgressBar;
                 progressBarSearch->setMaximumHeight(21);
-                labelSearchStatus = new QLabel("Waiting for search");
+                labelSearchStatus = new QLabel(tr("Waiting for search"));
                 labelSearchStatus->setMaximumHeight(21);
 
             layoutSearchRating = new QHBoxLayout;
 
             searchRating = new QComboBox;
-            searchRating->addItem("All");
+            searchRating->addItem(tr("All"));
             searchRating->addItem("Safe");
             searchRating->addItem("Questionnable");
             searchRating->addItem("Explicit");
@@ -220,8 +220,8 @@ void SearchTab::login()
 {
     /*Login test*/
 
-    QString user = QInputDialog::getText(this, "UserID", "Please input your Username (needed to log in to Gelbooru)", QLineEdit::Normal, QString());
-    QString pass = QInputDialog::getText(this, "Pass", "Please input your Password (needed to log in to Gelbooru)", QLineEdit::Normal, QString());
+    QString user = QInputDialog::getText(this, "UserID", tr("Please input your Username (needed to log in to Gelbooru)"), QLineEdit::Normal, QString());
+    QString pass = QInputDialog::getText(this, "Pass", tr("Please input your Password (needed to log in to Gelbooru)"), QLineEdit::Normal, QString());
 
     QList<QNetworkCookie> cookies = getLoginCookie("http://gelbooru.com/index.php?page=account&s=login&code=00",user,pass);
 
@@ -229,12 +229,12 @@ void SearchTab::login()
 
     if(cookie->isEmpty())
     {
-        QMessageBox::warning(this,"Warning","Login cookies could not be retrieved. Please check your username/password");
+        QMessageBox::warning(this,tr("Warning"),tr("Login cookies could not be retrieved. Please check your username/password"));
     }
     else
     {
         qDebug() << "Loaded" << QString(this->booru->getName().c_str()) << "cookie" << cookie->getAllCookies();
-        loginButton->setText("Login OK");
+        loginButton->setText(tr("Login OK"));
     }
 }
 
@@ -252,11 +252,11 @@ void SearchTab::initialisationMiniatures()
 
     if(recherche)
     {
-        uploader = "Loading picture";
+        uploader = tr("Loading picture");
     }
     else
     {
-        uploader = "Waiting for search";
+        uploader = tr("Waiting for search");
     }
 
     for(i=0;i<picture_number;i++)
@@ -294,7 +294,7 @@ void SearchTab::loadSearch(int refreshTags)
 
     initialisationMiniatures();
 
-    updateSearchStatus(progress, "Loading search page");
+    updateSearchStatus(progress, tr("Loading search page"));
 
     /*Tags*/
 
@@ -307,7 +307,7 @@ void SearchTab::loadSearch(int refreshTags)
         loaded_pictures = 0;
 
         progress +=20;//Progress = 20
-        updateSearchStatus(progress, "Loading pictures");
+        updateSearchStatus(progress, tr("Loading pictures"));
 
         for(int i=0;i<picture_number;i++)
         {
@@ -316,7 +316,7 @@ void SearchTab::loadSearch(int refreshTags)
         }
 
         //Progress = 40
-        updateSearchStatus(progress, "Loading thumbnails");
+        updateSearchStatus(progress, tr("Loading thumbnails"));
 
         loaded_pictures = 0;
 
@@ -335,11 +335,11 @@ void SearchTab::loadSearch(int refreshTags)
                 isAffiched[i] = false;
             }
         }
-        outputInfo(L_INFO,"Search completed");
+        outputInfo(L_INFO,tr("Search completed").toStdString());
     }
     else
     {
-        labelSearchStatus->setText(QString("Error loading search (Error ") + QString::number(state) + QString(")"));
+        labelSearchStatus->setText(QString(tr("Error loading search (Error ")) + QString::number(state) + QString(")"));
     }
     tagsSearched = tags;
 }
@@ -532,12 +532,12 @@ void SearchTab::startDumpingPicture()
 void SearchTab::updateDumping()
 {
     dump_progress++;
-    dumpButton->setText("Dumped " + QString::number(dump_progress) + QString("/") + QString::number(conf_file->getPictureNumber()));
+    dumpButton->setText(tr("Dumped ") + QString::number(dump_progress) + QString("/") + QString::number(conf_file->getPictureNumber()));
 
     if(dump_progress >= conf_file->getPictureNumber())
     {
         dumpButton->setEnabled(true);
-        dumpButton->setText("Dump page");
+        dumpButton->setText(tr("Dump page"));
     }
 }
 
@@ -547,8 +547,8 @@ void SearchTab::image_loaded(int index)
     progress += 4;
     if(progressBarSearch){progressBarSearch->setValue(progress);parentWidget->viewerTab->progressBar->setValue(progress);} //Sometimes the progressBar has a SIGSEGV
 
-    labelSearchStatus->setText(QString("Loaded thumbnails ") + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
-    parentWidget->viewerTab->labelLoading->setText(QString("Loaded thumbnails ") + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
+    labelSearchStatus->setText(QString(tr("Loaded thumbnails ")) + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
+    parentWidget->viewerTab->labelLoading->setText(QString(tr("Loaded thumbnails ")) + QString::number(loaded_pictures) + QString("/") + QString::number(picture_number));
     //delete loading_worker[i];
     //delete thread_pool_loading[i];
 }

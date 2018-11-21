@@ -10,19 +10,19 @@ QBooruPictureInfoWidget::QBooruPictureInfoWidget(QWidget *parent) : QWidget(pare
 void QBooruPictureInfoWidget::loadUI()
 {
     //Labels
-    this->titles[LABELS::LABEL_UPLOADER] = "Uploader";
-    this->titles[LABELS::LABEL_BOORU] = "Website";
-    this->titles[LABELS::LABEL_CREATION] = "Created on";
-    this->titles[LABELS::LABEL_DIMENSIONS] = "Dimensions";
-    this->titles[LABELS::LABEL_FULL_URL] = "Picture URL";
-    this->titles[LABELS::LABEL_ID] = "ID";
-    this->titles[LABELS::LABEL_RATING] = "Rating";
-    this->titles[LABELS::LABEL_SCORE] = "Score";
-    this->titles[LABELS::LABEL_SHOW_URL] = "Website URL";
+    this->titles[LABELS::LABEL_UPLOADER] = tr("Uploader");
+    this->titles[LABELS::LABEL_BOORU] = tr("Website");
+    this->titles[LABELS::LABEL_CREATION] = tr("Created on");
+    this->titles[LABELS::LABEL_DIMENSIONS] = tr("Dimensions");
+    this->titles[LABELS::LABEL_FULL_URL] = tr("Picture URL");
+    this->titles[LABELS::LABEL_ID] = tr("ID");
+    this->titles[LABELS::LABEL_RATING] = tr("Rating");
+    this->titles[LABELS::LABEL_SCORE] = tr("Score");
+    this->titles[LABELS::LABEL_SHOW_URL] = tr("Website URL");
 
     //UI
     QVBoxLayout *bLayout = new QVBoxLayout();
-    QGroupBox *b = new QGroupBox("Information", this);
+    QGroupBox *b = new QGroupBox(tr("Information"), this);
     b->setLayout(bLayout);
 
     for(int i=0;i<LABELS::COUNT;i++)

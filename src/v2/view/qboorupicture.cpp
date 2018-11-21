@@ -16,8 +16,8 @@ QBooruPicture::QBooruPicture(BooruPicture *picture, QWidget *parent) : QWidget(p
 
 void QBooruPicture::loadUI()
 {
-    labelPicture = new ClickableLabel("Picture",this);
-    labelComment = new QLabel("Size",this);
+    labelPicture = new ClickableLabel(tr("Picture"),this);
+    labelComment = new QLabel(tr("Size"),this);
 
     labelPicture->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 

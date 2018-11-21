@@ -1,5 +1,8 @@
 #include "boorupicture.h"
 
+#include <QString> // I'll refactor that later
+#include <QObject>
+
 #include <sstream>
 
 BooruPicture::BooruPicture(Json::Value root, BooruSite *parent)
@@ -135,7 +138,7 @@ void BooruPicture::loadTags(std::string tags_str)
 
 std::string secondsToString(int time){
     int i=0;
-    std::string timeUnit;
+    QString timeUnit;
     std::string timeString;
     std::stringstream ss;
 
@@ -148,42 +151,42 @@ std::string secondsToString(int time){
     switch(i)
     {
     case 0:
-        if(time == 1){timeUnit = " sec ago";}
-        else{timeUnit = " secs ago";}
+        if(time == 1){timeUnit = QObject::tr(" sec ago");}
+        else{timeUnit = QObject::tr(" secs ago");}
         break;
     case 1:
-        if(time == 1){timeUnit = " min ago";}
-        else{timeUnit = " mins ago";}
+        if(time == 1){timeUnit = QObject::tr(" min ago");}
+        else{timeUnit = QObject::tr(" mins ago");}
         break;
     case 2:
-        if(time == 1){timeUnit = " hour ago";}
-        else{timeUnit = " hours ago";}
+        if(time == 1){timeUnit = QObject::tr(" hour ago");}
+        else{timeUnit = QObject::tr(" hours ago");}
         break;
     }
 
     if(time >=24)
     {
         time /= 24;
-        if(time == 1){timeUnit = " day ago";}
-        else{timeUnit = " days ago";}
+        if(time == 1){timeUnit = QObject::tr(" day ago");}
+        else{timeUnit = QObject::tr(" days ago");}
 
         if(time >=365)
         {
             time /= 365;
-            if(time == 1){timeUnit = " year ago";}
-            else{timeUnit = " years ago";}
+            if(time == 1){timeUnit = QObject::tr(" year ago");}
+            else{timeUnit = QObject::tr(" years ago");}
         }
         else if(time >=30)
         {
             time /= 30;
-            if(time == 1){timeUnit = " month ago";}
-            else{timeUnit = " months ago";}
+            if(time == 1){timeUnit = QObject::tr(" month ago");}
+            else{timeUnit = QObject::tr(" months ago");}
         }
     }
 
     ss << time;
 
-    timeString = ss.str() + timeUnit;
+    timeString = ss.str() + timeUnit.toStdString();
 
     return timeString;
 }

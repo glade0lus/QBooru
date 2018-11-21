@@ -11,7 +11,7 @@ QSearchWidget::QSearchWidget(BooruSite *site, int limit, QWidget *parent) : QWid
 
 void QSearchWidget::loadUI()
 {
-    pushButtonSearch = new QPushButton("Search",this);
+    pushButtonSearch = new QPushButton(tr("Search"),this);
     lineEditTags = new QLineEdit();
 
     QHBoxLayout *l = new QHBoxLayout;

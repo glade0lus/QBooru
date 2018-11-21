@@ -10,7 +10,7 @@ void QStartupWidget::loadUI()
 {
    QVBoxLayout *layout = new QVBoxLayout;
    progressBar = new QProgressBar(this);
-   labelStatus = new QLabel("Starting",this);
+   labelStatus = new QLabel(tr("Starting"),this);
 
    layout->addWidget(progressBar);
    layout->addWidget(labelStatus);

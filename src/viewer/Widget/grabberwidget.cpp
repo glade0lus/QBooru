@@ -11,7 +11,7 @@ GrabberWidget::GrabberWidget(Widget *parent) : QWidget(parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     //Booru selection
-    QGroupBox *groupBoxBoorus = new QGroupBox("Booru selection",this);
+    QGroupBox *groupBoxBoorus = new QGroupBox(tr("Booru selection"),this);
     QVBoxLayout *layoutBoorus = new QVBoxLayout;
 
     for(int i=0;i<cfg->getBoorus().size();i++)
@@ -20,7 +20,7 @@ GrabberWidget::GrabberWidget(Widget *parent) : QWidget(parent)
 
         QHBoxLayout *layout = new QHBoxLayout;
         checkBoxes.push_back(new QCheckBox(this));
-        buttonsLogin.push_back(new QPushButton("Login",this));
+        buttonsLogin.push_back(new QPushButton(tr("Login"),this));
 
         if(cfg->getBoorus().at(i)->getSiteTypeInt() != GELBOORU_TYPE)
         {
@@ -32,7 +32,7 @@ GrabberWidget::GrabberWidget(Widget *parent) : QWidget(parent)
             cookies.at(i)->load();
             if(!cookies.at(i)->isEmpty())
             {
-                buttonsLogin.at(i)->setText("Login OK");
+                buttonsLogin.at(i)->setText(tr("Login OK"));
             }
 
             connect(buttonsLogin.at(i),SIGNAL(clicked()),mapper,SLOT(map()));
@@ -49,15 +49,15 @@ GrabberWidget::GrabberWidget(Widget *parent) : QWidget(parent)
     groupBoxBoorus->setLayout(layoutBoorus);
 
     //Search
-    QGroupBox *groupBoxSearch = new QGroupBox("Search",this);
+    QGroupBox *groupBoxSearch = new QGroupBox(tr("Search"),this);
     QVBoxLayout *layoutGBSearch = new QVBoxLayout;
 
     QHBoxLayout *layoutSearch = new QHBoxLayout;
-    QPushButton *pushButtonSearch = new QPushButton("Grab",this);
+    QPushButton *pushButtonSearch = new QPushButton(tr("Grab"),this);
     lineEditTags = new QLineEdit(this);
 
     searchRating = new QComboBox(this);
-    searchRating->addItem("All");
+    searchRating->addItem(tr("All"));
     searchRating->addItem("Safe");
     searchRating->addItem("Questionnable");
     searchRating->addItem("Explicit");
@@ -70,9 +70,9 @@ GrabberWidget::GrabberWidget(Widget *parent) : QWidget(parent)
     lineEditLimit = new QLineEdit(this);
     lineEditLimit->setValidator( new QIntValidator(0, 500, this) );
 
-    layoutSearch2->addWidget(new QLabel("Limit :"));
+    layoutSearch2->addWidget(new QLabel(tr("Limit :")));
     layoutSearch2->addWidget(lineEditLimit);
-    layoutSearch2->addWidget(new QLabel("results per booru"));
+    layoutSearch2->addWidget(new QLabel(tr("results per booru")));
     layoutSearch2->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
     layoutGBSearch->addLayout(layoutSearch);
@@ -82,9 +82,9 @@ GrabberWidget::GrabberWidget(Widget *parent) : QWidget(parent)
     connect(pushButtonSearch,SIGNAL(clicked()),this,SLOT(startProcess()));
 
     //Status
-    QGroupBox *groupBoxProcess = new QGroupBox("Process",this);
+    QGroupBox *groupBoxProcess = new QGroupBox(tr("Process"),this);
 
-    labelStatus = new QLabel("Start a grab operation",this);
+    labelStatus = new QLabel(tr("Start a grab operation"),this);
     progressBar = new QProgressBar(this);
 
     QVBoxLayout *layoutProgress = new QVBoxLayout;
@@ -120,8 +120,8 @@ void GrabberWidget::login(int booru_index)
 
     BooruSite *booru = cfg->getBoorus().at(booru_index);
 
-    QString user = QInputDialog::getText(this, "UserID", "Please input your Username (needed to log in to Gelbooru)", QLineEdit::Normal, QString());
-    QString pass = QInputDialog::getText(this, "Pass", "Please input your Password (needed to log in to Gelbooru)", QLineEdit::Normal, QString());
+    QString user = QInputDialog::getText(this, "UserID", tr("Please input your Username (needed to log in to Gelbooru)"), QLineEdit::Normal, QString());
+    QString pass = QInputDialog::getText(this, tr("Pass"), tr("Please input your Password (needed to log in to Gelbooru)"), QLineEdit::Normal, QString());
 
     QList<QNetworkCookie> cookie = getLoginCookie("http://gelbooru.com/index.php?page=account&s=login&code=00",user,pass);
 
@@ -129,13 +129,13 @@ void GrabberWidget::login(int booru_index)
 
     if(cookies.at(booru_index)->isEmpty())
     {
-        QMessageBox::warning(this,"Warning","Login cookies could not be retrieved. Please check your username/password");
+        QMessageBox::warning(this,tr("Warning"),tr("Login cookies could not be retrieved. Please check your username/password"));
     }
     else
     {
         grabber->setCookie(booru_index, cookies.at(booru_index));
         qDebug() << "Loaded" << QString(booru->getName().c_str()) << "cookie" << cookies.at(booru_index)->getAllCookies();
-        buttonsLogin.at(booru_index)->setText("Login OK");
+        buttonsLogin.at(booru_index)->setText(tr("Login OK"));
     }
 }
 

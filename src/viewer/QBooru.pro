@@ -111,6 +111,8 @@ OTHER_FILES += \
     default.png \
     Backups_Fonctions.txt
 
+TRANSLATIONS = qbooru_ru.ts
+
 static { # everything below takes effect with CONFIG ''= static
  CONFIG+= static
  DEFINES+= STATIC
